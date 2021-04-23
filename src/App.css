@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-.total-hours, .dates {
+.total-hours, .dates, .hours-per-day, .times {
   display: flex;
   flex-direction: row;
 

@@ -6,19 +6,24 @@ function App() {
 
   //СБОР ВСЕХ ДАННЫХ ДЛЯ ОТПРАВКИ НА СЕРВЕР
   const [data, setData] = useState({
-    'hoursType': '',
-    'totalHours': '',
-    'startDate': '',
-    'day-of-visits': ''
+    'hours-type': '',
+    'total-hours': '',
+    'start-date': '',
+    'day-of-visits': '',
+    'recreation-time': '',
+    'hours-per-day': '',
+    'start-time': ''
   });
   function handleAllData () {
     setData({
-      'hoursType': hoursType,
-      'totalHours': totalHours,
-      'startDate': startDate,
-      'day-of-visits': visits
+      'hours-type': hoursType,
+      'total-hours': totalHours,
+      'start-date': startDate,
+      'day-of-visits': visits,
+      'recreation-time': recreation,
+      'hours-per-day': hoursPerDay,
+      'start-time': startTime
     })
-    console.log(data)
   }
 
   //Состояние типа часов, академические/астрономические
@@ -87,6 +92,34 @@ function App() {
     visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true})
   }
 
+  const [recreation, setRecreation] = useState(0);
+  function handleChangeRecreationTime (e) {
+    setRecreation(e.target.value)
+  }
+
+  const [hoursPerDay, setHoursPerDay] = useState(0)
+  function handlePlusHoursPerDay () {
+    if (hoursPerDay < totalHours) {
+      setHoursPerDay(hoursPerDay+1)
+    }
+    else {
+      return hoursPerDay
+    }
+  }
+  function handleMinusHoursPerDay () {
+    if (hoursPerDay>0) {
+      setHoursPerDay(hoursPerDay-1)
+    }
+    else {
+      return hoursPerDay
+    }
+  }
+
+  const [startTime, setStartTime] = useState('07:00')
+  function handleChangeStartTime (e) {
+    setStartTime(e.target.value)
+  }
+
   return (
     <div className="App">
       <form>
@@ -95,7 +128,6 @@ function App() {
       <option value="astronomical">Астрономические</option>
       </select>
       </form>
-      <h1>{hoursType==='academic'? 'ACADEM' : 'ASTRO'}</h1>
 
       <div className='total-hours'>
         <button onClick={handleMinusTotalHours}>-</button>
@@ -122,10 +154,36 @@ function App() {
           <button className={visits.su? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeSunday}>ВС</button>
       </div>
 
+      <div className='recreation'>
+      <form>
+      <select name='recreation-time' size="1" defaultValue={recreation} onChange={handleChangeRecreationTime}>
+      <option value='0'>Без перерыва</option>
+      <option value='5'>5 минут</option>
+      <option value='10'>10 минут</option>
+      <option value='15'>15 минут</option>
+      <option value='20'>20 минут</option>
+      <option value='25'>25 минут</option>
+      <option value='30'>30 минут</option>
+      </select>
+      </form>
+      </div>
+
+      <div className='hours-per-day'>
+        <button onClick={handleMinusHoursPerDay}>-</button>
+        <p>{hoursPerDay}</p>
+        <p>Часов в день</p>
+        <button onClick={handlePlusHoursPerDay}>+</button>
+      </div>
+
+      <div className='times'>
+        <input onChange={handleChangeStartTime} value={startTime} type='time'/>
+        <p>до</p>
+        <input type='time'/>
+      </div>
 
 
-
-      <button onClick={handleAllData}>ОТПРАВИТЬ</button>
+      <button onClick={handleAllData}>Применить</button>
+      <button onClick={() => console.log(data)}>Показать данные в консоли</button>
       </div>
     
   );
