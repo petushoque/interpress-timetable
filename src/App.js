@@ -121,30 +121,29 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <form>
-      <select name="hourstype" size="1" defaultValue='academic' onChange={handleChangeHoursType}>
+    <div className='App'>
+
+      <select className='hours-type' name="hourstype" size="1" defaultValue='academic' onChange={handleChangeHoursType}>
       <option value="academic">Академические</option>
       <option value="astronomical">Астрономические</option>
       </select>
-      </form>
 
       <div className='total-hours'>
-        <button onClick={handleMinusTotalHours}>-</button>
-        <p>{totalHours}</p>
-        <p>Всего часов</p>
-        <button onClick={handlePlusTotalHours}>+</button>
+        <button className='total-hours__button-minus' onClick={handleMinusTotalHours}>-</button>
+        <p className='total-hours__digit'>{totalHours}</p>
+        <p className='total-hours__paragraph'>Всего часов</p>
+        <button className='total-hours__button-plus' onClick={handlePlusTotalHours}>+</button>
       </div>
 
       <div className='dates'>
-        <input value={startDate} onChange={handleChangeStartDate} type='date'/>
-        <p>до</p>
-        <input type='date'/>
+        <input className='dates__input' value={startDate} onChange={handleChangeStartDate} type='date'/>
+        <p className='dates__paragraph'>до</p>
+        <input className='dates__input' type='date'/>
       </div>
       
       <div className='schedule-of-visits'>
-          <button onClick={handleChangeMnWeFr}>ПН/СР/ПТ</button>
-          <button onClick={handleChangeTuTh}>ВТ/ЧТ</button>
+          <button className='day-of-visits' onClick={handleChangeMnWeFr}>ПН/СР/ПТ</button>
+          <button className='day-of-visits' onClick={handleChangeTuTh}>ВТ/ЧТ</button>
           <button className={visits.mo? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeMonday}>ПН</button>
           <button className={visits.tu? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeTuesday}>ВТ</button>
           <button className={visits.we? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeWednesday}>СР</button>
@@ -154,9 +153,7 @@ function App() {
           <button className={visits.su? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeSunday}>ВС</button>
       </div>
 
-      <div className='recreation'>
-      <form>
-      <select name='recreation-time' size="1" defaultValue={recreation} onChange={handleChangeRecreationTime}>
+      <select className='recreation-time' name='recreation-time' size="1" defaultValue={recreation} onChange={handleChangeRecreationTime}>
       <option value='0'>Без перерыва</option>
       <option value='5'>5 минут</option>
       <option value='10'>10 минут</option>
@@ -165,25 +162,23 @@ function App() {
       <option value='25'>25 минут</option>
       <option value='30'>30 минут</option>
       </select>
-      </form>
-      </div>
 
       <div className='hours-per-day'>
-        <button onClick={handleMinusHoursPerDay}>-</button>
-        <p>{hoursPerDay}</p>
-        <p>Часов в день</p>
-        <button onClick={handlePlusHoursPerDay}>+</button>
+        <button className='hours-per-day__button-minus' onClick={handleMinusHoursPerDay}>-</button>
+        <p className='hours-per-day__digit'>{hoursPerDay}</p>
+        <p className='hours-per-day__digit'>Часов в день</p>
+        <button className='hours-per-day__button-plus' onClick={handlePlusHoursPerDay}>+</button>
       </div>
 
       <div className='times'>
-        <input onChange={handleChangeStartTime} value={startTime} type='time'/>
-        <p>до</p>
-        <input type='time'/>
+        <input className='times__input' onChange={handleChangeStartTime} value={startTime} type='time'/>
+        <p className='times__paragraph'>до</p>
+        <input className='times__input' type='time'/>
       </div>
 
 
-      <button onClick={handleAllData}>Применить</button>
-      <button onClick={() => console.log(data)}>Показать данные в консоли</button>
+      <button className='console-button' onClick={handleAllData}>Применить</button>
+      <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
       </div>
     
   );

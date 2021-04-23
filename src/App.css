@@ -1,8 +1,14 @@
 .App {
-  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
-.total-hours, .dates, .hours-per-day, .times {
+.hours-per-day, .times {
   display: flex;
   flex-direction: row;
 
@@ -10,12 +16,250 @@
   justify-content: center;
 }
 
+.hours-type {
+  height: 30px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.total-hours {
+  
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.total-hours__paragraph {
+  max-width: 50px;
+  font-size: 10px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+  background-color: #dadada
+}
+
+.total-hours__digit {
+  width: 50px;
+  font-size: 12px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.total-hours__button-minus {
+  height: 100%;
+  width: 30px;
+  background-color: #627fce;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  color:white;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.total-hours__button-plus {
+  height: 100%;
+  width: 30px;
+  background-color: #627fce;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  color:white;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.dates {
+  height: 30px;
+  max-width: 250px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid grey;
+}
+
+.dates__input {
+  height: 100%;
+  border: none;
+  font-size: 12px;
+}
+
+.dates__paragraph {
+  background-color: #858585;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 30px;
+  font-size: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.schedule-of-visits {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
 .day-of-visits {
   background-color: white;
   color:black;
+  height: 30px;
+  min-width: 50px;
+  border: 1px solid grey;
+  flex-grow: 1;
+  font-size: 12px;
 }
 
 .day-of-visits_active {
   background-color: black;
-  color:white
+  color:white;
+  height: 30px;
+  min-width: 50px;
+  border: 1px solid grey;
+  flex-grow: 1;
+  font-size: 12px;
+}
+
+.recreation-time {
+  height: 30px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.hours-per-day {
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.hours-per-day__button-minus {
+  height: 100%;
+  width: 30px;
+  background-color: #627fce;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  color:white;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.hours-per-day__button-plus {
+  height: 100%;
+  width: 30px;
+  background-color: #627fce;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  color:white;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.hours-per-day__digit {
+  width: 50px;
+  font-size: 12px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid grey;
+  box-sizing: border-box;
+}
+
+.hours-per-day__paragraph {
+  max-width: 50px;
+  font-size: 10px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  border: 1px solid grey;
+  box-sizing: border-box;
+  background-color: #dadada
+}
+
+.times {
+  height: 30px;
+  max-width: 250px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 5px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid grey;
+}
+
+.times__input {
+  height: 100%;
+  border: none;
+  font-size: 12px;
+}
+
+.times__paragraph {
+  background-color: #858585;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 30px;
+  font-size: 10px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.console-button {
+  background-color: black;
+  color:white;
+  height: 30px;
+  min-width: 50px;
+  border: 1px solid grey;
+  font-size: 12px;
+  margin: 0 0 0 10px;
 }
