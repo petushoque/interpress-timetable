@@ -9,3 +9,13 @@
   align-items: center;
   justify-content: center;
 }
+
+.day-of-visits {
+  background-color: white;
+  color:black;
+}
+
+.day-of-visits_active {
+  background-color: black;
+  color:white
+}
