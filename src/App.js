@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
 
@@ -9,20 +9,28 @@ function App() {
     'hours-type': '',
     'total-hours': '',
     'start-date': '',
+    'end-date': '',
     'day-of-visits': '',
     'recreation-time': '',
     'hours-per-day': '',
-    'start-time': ''
+    'start-time': '',
+    'end-time': '',
+    'teacher': '',
+    'room': '',
   });
   function handleAllData () {
     setData({
       'hours-type': hoursType,
       'total-hours': totalHours,
       'start-date': startDate,
+      'end-date': endDate,
       'day-of-visits': visits,
       'recreation-time': recreation,
       'hours-per-day': hoursPerDay,
-      'start-time': startTime
+      'start-time': startTime,
+      'end-time': endTime,
+      'teacher': teacher,
+      'room': room
     })
   }
 
@@ -35,10 +43,12 @@ function App() {
   const [totalHours, setTotalHours] = useState(0)
   function handlePlusTotalHours () {
     setTotalHours(totalHours+1)
+    endDateFunc()
   }
   function handleMinusTotalHours () {
     if (totalHours>0) {
       setTotalHours(totalHours-1)
+      endDateFunc()
     }
     else {
       return totalHours
@@ -51,15 +61,20 @@ function App() {
 
   function handleChangeStartDate (e) {
     setStartDate(e.target.value)
+    endDateFunc()
   }
 
 //РАСЧЕТ ДАТЫ ОКОНЧАНИЯ ОБУЧЕНИЯ
 
-function endDate () {
-  //превращаем полученные из инпута данные даты в объект даты
+const [endDate, setEndDate] = useState(today)
+
+function endDateFunc () {
+  if (totalHours!==0 && 
+    hoursPerDay!==0 &&
+    (visits.mo && visits.tu && visits.we && visits.th && visits.fr && visits.sa && visits.su)!==0 ) {
+
   let start = new Date(startDate);
   let daysCount = Math.ceil(totalHours/hoursPerDay);
-
   let days = [
     'su',
     'mo',
@@ -69,52 +84,21 @@ function endDate () {
     'fr',
     'sa'
   ];
-
-  let end = new Date(start.setDate(start.getDate() + 1))
-  let dayOfTheWeekEnd = end.getDay()
-  //console.log(end)
-  //console.log(dayOfTheWeekEnd)
-
   let dateForCounter = start;
-  let counter = daysCount
-  //console.log(visits)
+  let counter = daysCount;
   while (counter > 0) {
-    //console.log(dateForCounter)
-    let dayOfWeek = days[dateForCounter.getDay()]
-    //console.log(dayOfWeek)
-    //console.log(visits[dayOfWeek])
+    let dayOfWeek = days[dateForCounter.getDay()];    
     if (visits[dayOfWeek]) {
-      console.log(visits[dayOfWeek])
-      console.log(dateForCounter)
       counter = counter-1;
     }
-    //counter = counter-1;
     dateForCounter = new Date(dateForCounter.setDate(dateForCounter.getDate() + 1))
   }
-/*
-получить номер завтрашнего дня недели от 0 до 6
-var date = new Date('2021-004-23'); date2 = date.setDate(date.getDate() + 1); date3 = new Date(date2); console.log(date3.getDay())
-
-*/
-
-
-  //получить завтрашний день
-  //var date = new Date('2021-004-23'); date2 = date.setDate(date.getDate() + 1); console.log(new Date(date2))
-  /*
-  Получить день недели
-  var days = [
-  'Воскресенье',
-  'Понедельник',
-  'Вторник',
-  'Среда',
-  'Четверг',
-  'Пятница',
-  'Суббота'
-];
-var d = new Date();
-var n = d.getDay();
-console.log(days[n]);
-*/
+  let result = new Date(dateForCounter.setDate(dateForCounter.getDate()) -1)
+  setEndDate(result.toISOString().slice(0,10))
+  }
+  else {
+    setEndDate(today)
+  }
 }
 
   const [visits, setVisits] = useState({
@@ -128,43 +112,56 @@ console.log(days[n]);
   })
   
   function handleChangeMnWeFr () {
-    setVisits({...visits, mo: true, tu: false, we: true, th: false, fr: true, sa: false, su: false})
+    setVisits({...visits, mo: true, tu: false, we: true, th: false, fr: true, sa: false, su: false});
+    endDateFunc()
   }
   function handleChangeTuTh () {
-    setVisits({...visits, mo: false, tu: true, we: false, th: true, fr: false, sa: false, su: false})
+    setVisits({...visits, mo: false, tu: true, we: false, th: true, fr: false, sa: false, su: false});
+    endDateFunc()
   }
 
   function handleChangeMonday () {
-    visits.mo === true ? setVisits({...visits, mo: false}) : setVisits({...visits, mo: true})
+    visits.mo === true ? setVisits({...visits, mo: false}) : setVisits({...visits, mo: true});
+    endDateFunc()
   }
   function handleChangeTuesday () {
-    visits.tu === true ? setVisits({...visits, tu: false}) : setVisits({...visits, tu: true})
+    visits.tu === true ? setVisits({...visits, tu: false}) : setVisits({...visits, tu: true});
+    endDateFunc()
   }
   function handleChangeWednesday () {
-    visits.we === true ? setVisits({...visits, we: false}) : setVisits({...visits, we: true})
+    visits.we === true ? setVisits({...visits, we: false}) : setVisits({...visits, we: true});
+    endDateFunc()
   }
   function handleChangeThursday () {
-    visits.th === true ? setVisits({...visits, th: false}) : setVisits({...visits, th: true})
+    visits.th === true ? setVisits({...visits, th: false}) : setVisits({...visits, th: true});
+    endDateFunc()
   }
   function handleChangeFriday () {
-    visits.fr === true ? setVisits({...visits, fr: false}) : setVisits({...visits, fr: true})
+    visits.fr === true ? setVisits({...visits, fr: false}) : setVisits({...visits, fr: true});
+    endDateFunc()
   }
   function handleChangeSaturday () {
-    visits.sa === true ? setVisits({...visits, sa: false}) : setVisits({...visits, sa: true})
+    visits.sa === true ? setVisits({...visits, sa: false}) : setVisits({...visits, sa: true});
+    endDateFunc()
   }
   function handleChangeSunday () {
-    visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true})
+    visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true});
+    endDateFunc()
   }
 
   const [recreation, setRecreation] = useState(0);
   function handleChangeRecreationTime (e) {
     setRecreation(e.target.value)
+    setTimeout(handleChangeEndTime, 10);
   }
 
   const [hoursPerDay, setHoursPerDay] = useState(0)
   function handlePlusHoursPerDay () {
     if (hoursPerDay < totalHours) {
       setHoursPerDay(hoursPerDay+1)
+      setTimeout(handleChangeEndTime, 10);
+      endDateFunc()
+      
     }
     else {
       return hoursPerDay
@@ -173,6 +170,9 @@ console.log(days[n]);
   function handleMinusHoursPerDay () {
     if (hoursPerDay>0) {
       setHoursPerDay(hoursPerDay-1)
+      setTimeout(handleChangeEndTime, 10);
+      endDateFunc()
+      
     }
     else {
       return hoursPerDay
@@ -182,6 +182,52 @@ console.log(days[n]);
   const [startTime, setStartTime] = useState('07:00')
   function handleChangeStartTime (e) {
     setStartTime(e.target.value)
+    setTimeout(handleChangeEndTime, 10);
+  }
+
+
+  const [endTime, setEndTime] = useState('07:00')
+  function handleChangeEndTime () {
+    let arr = (startTime.split(':'))
+    let educTime = 45 * (Number.parseInt(hoursPerDay))
+    let recTime = Number.parseInt(recreation)
+    let minutesAtStart = (Number.parseInt(arr[0]) * 60) + Number.parseInt(arr[1]);
+    console.log(minutesAtStart)
+    if (hoursType==='academic') {
+      let minutesAtFinish = minutesAtStart + educTime + recTime;
+      console.log(minutesAtFinish)
+      let hours = Math.floor(minutesAtFinish/60);
+      if (hours < 10) {
+        hours = `0${hours}`
+      }
+      let minutes = minutesAtFinish % 60;
+      if (minutes < 10) {
+        minutes = `0${minutes}`
+      }
+      let result = `${hours}:${minutes}`
+      return result
+      
+      
+    }
+    //console.log(minutesAtStart)
+    //setEndTime('')
+  }
+
+  useEffect(() => {
+    setEndTime(endTime)
+  }, [endTime])
+
+
+
+
+  const [teacher, setTeacher] = useState('');
+  function handleChangeTeacher (e) {
+    setTeacher(e.target.value)
+  }
+
+  const [room, setRoom] = useState('');
+  function handleChangeRoom (e) {
+    setRoom(e.target.value)
   }
 
   return (
@@ -202,7 +248,7 @@ console.log(days[n]);
       <div className='dates'>
         <input className='dates__input' value={startDate} onChange={handleChangeStartDate} type='date'/>
         <p className='dates__paragraph'>до</p>
-        <input className='dates__input' type='date'/>
+        <input className='dates__input' value={endDate} type='date' readOnly/>
       </div>
       
       <div className='schedule-of-visits'>
@@ -237,14 +283,27 @@ console.log(days[n]);
       <div className='times'>
         <input className='times__input' onChange={handleChangeStartTime} value={startTime} type='time'/>
         <p className='times__paragraph'>до</p>
-        <input className='times__input' type='time'/>
+        <input className='times__input' type='time' value={endTime} readOnly/>
       </div>
+
+      <select className='teacher-name' name="teachername" size="1" defaultValue='' onChange={handleChangeTeacher}>
+      <option value="">Выберите преподавателя на это время</option>
+      <option value="ivanov">Иванов Иван</option>
+      <option value="petrov">Петров Петр</option>
+      <option value="reeves">Киану Ривз</option>
+      </select>
+
+      <select className='room' name="room" size="1" defaultValue='' onChange={handleChangeRoom}>
+      <option value="">Аудитория</option>
+      <option value="001">001</option>
+      <option value="002">002</option>
+      <option value="003">003</option>
+      </select>
 
 
       <button className='console-button' onClick={handleAllData}>Применить</button>
       <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
 
-      <button onClick={endDate}>TEST ENDDATE</button>
       </div>
     
   );
