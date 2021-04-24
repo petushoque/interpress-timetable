@@ -43,12 +43,12 @@ function App() {
   const [totalHours, setTotalHours] = useState(0)
   function handlePlusTotalHours () {
     setTotalHours(totalHours+1)
-    endDateFunc()
+    //endDateFunc()
   }
   function handleMinusTotalHours () {
     if (totalHours>0) {
       setTotalHours(totalHours-1)
-      endDateFunc()
+      //endDateFunc()
     }
     else {
       return totalHours
@@ -61,7 +61,7 @@ function App() {
 
   function handleChangeStartDate (e) {
     setStartDate(e.target.value)
-    endDateFunc()
+    //endDateFunc()
   }
 
 //РАСЧЕТ ДАТЫ ОКОНЧАНИЯ ОБУЧЕНИЯ
@@ -69,9 +69,11 @@ function App() {
 const [endDate, setEndDate] = useState(today)
 
 function endDateFunc () {
-  if (totalHours!==0 && 
-    hoursPerDay!==0 &&
-    (visits.mo && visits.tu && visits.we && visits.th && visits.fr && visits.sa && visits.su)!==0 ) {
+  if (totalHours!==0 && hoursPerDay!==0 && 
+    (visits.mo && visits.tu && visits.we && visits.th && visits.fr && visits.sa && visits.su)!==0 ) 
+    
+    
+    {
 
   let start = new Date(startDate);
   let daysCount = Math.ceil(totalHours/hoursPerDay);
@@ -113,40 +115,40 @@ function endDateFunc () {
   
   function handleChangeMnWeFr () {
     setVisits({...visits, mo: true, tu: false, we: true, th: false, fr: true, sa: false, su: false});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeTuTh () {
     setVisits({...visits, mo: false, tu: true, we: false, th: true, fr: false, sa: false, su: false});
-    endDateFunc()
+    //endDateFunc()
   }
 
   function handleChangeMonday () {
     visits.mo === true ? setVisits({...visits, mo: false}) : setVisits({...visits, mo: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeTuesday () {
     visits.tu === true ? setVisits({...visits, tu: false}) : setVisits({...visits, tu: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeWednesday () {
     visits.we === true ? setVisits({...visits, we: false}) : setVisits({...visits, we: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeThursday () {
     visits.th === true ? setVisits({...visits, th: false}) : setVisits({...visits, th: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeFriday () {
     visits.fr === true ? setVisits({...visits, fr: false}) : setVisits({...visits, fr: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeSaturday () {
     visits.sa === true ? setVisits({...visits, sa: false}) : setVisits({...visits, sa: true});
-    endDateFunc()
+    //endDateFunc()
   }
   function handleChangeSunday () {
     visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true});
-    endDateFunc()
+    //endDateFunc()
   }
 
   const [recreation, setRecreation] = useState(0);
@@ -158,7 +160,7 @@ function endDateFunc () {
   function handlePlusHoursPerDay () {
     if (hoursPerDay < totalHours) {
       setHoursPerDay(hoursPerDay+1)
-      endDateFunc()
+      //endDateFunc()
       
     }
     else {
@@ -168,7 +170,7 @@ function endDateFunc () {
   function handleMinusHoursPerDay () {
     if (hoursPerDay>0) {
       setHoursPerDay(hoursPerDay-1)
-      endDateFunc()
+      //endDateFunc()
       
     }
     else {
@@ -183,21 +185,25 @@ function endDateFunc () {
   }
 
   useEffect(() => {
-    if (startTime) // This means if Fred is not default empty state.
+    if (startDate)
       handleChangeEndTime ()
-  }, [startTime])
+  }, [hoursType, startTime, hoursPerDay, recreation])
+
+  useEffect(() => {
+    if (startTime)
+      endDateFunc()
+  }, [startDate, totalHours, hoursPerDay, visits])
 
 
   const [endTime, setEndTime] = useState('07:00')
   function handleChangeEndTime () {
     let arr = (startTime.split(':'))
     let educTime = 45 * (Number.parseInt(hoursPerDay))
+    let educTimeAstro = 60 * (Number.parseInt(hoursPerDay))
     let recTime = Number.parseInt(recreation)
     let minutesAtStart = (Number.parseInt(arr[0]) * 60) + Number.parseInt(arr[1]);
-    console.log(minutesAtStart)
     if (hoursType==='academic') {
       let minutesAtFinish = minutesAtStart + educTime + recTime;
-      console.log(minutesAtFinish)
       let hours = Math.floor(minutesAtFinish/60);
       if (hours < 10) {
         hours = `0${hours}`
@@ -207,12 +213,21 @@ function endDateFunc () {
         minutes = `0${minutes}`
       }
       let result = `${hours}:${minutes}`
-      console.log(result)
-      setEndTime(result)
-      
+      setEndTime(result)      
     }
-    //console.log(minutesAtStart)
-    //setEndTime('')
+    if (hoursType==='astronomical') {
+      let minutesAtFinish = minutesAtStart + educTimeAstro + recTime;
+      let hours = Math.floor(minutesAtFinish/60);
+      if (hours < 10) {
+        hours = `0${hours}`
+      }
+      let minutes = minutesAtFinish % 60;
+      if (minutes < 10) {
+        minutes = `0${minutes}`
+      }
+      let result = `${hours}:${minutes}`
+      setEndTime(result)      
+    }
   }
 
 
