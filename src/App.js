@@ -45,13 +45,75 @@ function App() {
     }
   }
 
-  let Data = new Date()
-  const today = Data.toISOString().slice(0,10);
+  let NewDate = new Date()
+  const today = NewDate.toISOString().slice(0,10);
   const [startDate, setStartDate] = useState(today)
 
   function handleChangeStartDate (e) {
     setStartDate(e.target.value)
   }
+
+//РАСЧЕТ ДАТЫ ОКОНЧАНИЯ ОБУЧЕНИЯ
+
+function endDate () {
+  //превращаем полученные из инпута данные даты в объект даты
+  let start = new Date(startDate);
+  let daysCount = Math.ceil(totalHours/hoursPerDay);
+
+  let days = [
+    'su',
+    'mo',
+    'tu',
+    'we',
+    'th',
+    'fr',
+    'sa'
+  ];
+
+  let end = new Date(start.setDate(start.getDate() + 1))
+  let dayOfTheWeekEnd = end.getDay()
+  console.log(end)
+  console.log(dayOfTheWeekEnd)
+
+  let dateForCounter = start;
+  let counter = daysCount
+  console.log(visits)
+  while (counter > 0) {
+    console.log(dateForCounter)
+    let dayOfWeek = days[dateForCounter.getDay()]
+    console.log(dayOfWeek)
+    console.log(visits[dayOfWeek])
+    if (visits[dayOfWeek]) {
+      console.log('+')
+    }
+    counter = counter-1;
+    dateForCounter = new Date(dateForCounter.setDate(dateForCounter.getDate() + 1))
+  }
+/*
+получить номер завтрашнего дня недели от 0 до 6
+var date = new Date('2021-004-23'); date2 = date.setDate(date.getDate() + 1); date3 = new Date(date2); console.log(date3.getDay())
+
+*/
+
+
+  //получить завтрашний день
+  //var date = new Date('2021-004-23'); date2 = date.setDate(date.getDate() + 1); console.log(new Date(date2))
+  /*
+  Получить день недели
+  var days = [
+  'Воскресенье',
+  'Понедельник',
+  'Вторник',
+  'Среда',
+  'Четверг',
+  'Пятница',
+  'Суббота'
+];
+var d = new Date();
+var n = d.getDay();
+console.log(days[n]);
+*/
+}
 
   const [visits, setVisits] = useState({
     mo: false,
@@ -166,7 +228,7 @@ function App() {
       <div className='hours-per-day'>
         <button className='hours-per-day__button-minus' onClick={handleMinusHoursPerDay}>-</button>
         <p className='hours-per-day__digit'>{hoursPerDay}</p>
-        <p className='hours-per-day__digit'>Часов в день</p>
+        <p className='hours-per-day__paragraph'>Часов в день</p>
         <button className='hours-per-day__button-plus' onClick={handlePlusHoursPerDay}>+</button>
       </div>
 
@@ -179,6 +241,8 @@ function App() {
 
       <button className='console-button' onClick={handleAllData}>Применить</button>
       <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
+
+      <button onClick={endDate}>TEST ENDDATE</button>
       </div>
     
   );

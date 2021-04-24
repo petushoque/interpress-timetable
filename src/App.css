@@ -1,5 +1,5 @@
 .App {
-  max-width: 800px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 25px;
   box-sizing: border-box;
@@ -8,13 +8,7 @@
   flex-wrap: wrap;
 }
 
-.hours-per-day, .times {
-  display: flex;
-  flex-direction: row;
 
-  align-items: center;
-  justify-content: center;
-}
 
 .hours-type {
   height: 30px;
@@ -89,7 +83,7 @@
 
 .dates {
   height: 30px;
-  max-width: 250px;
+  max-width: 300px;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
