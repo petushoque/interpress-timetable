@@ -72,21 +72,23 @@ function endDate () {
 
   let end = new Date(start.setDate(start.getDate() + 1))
   let dayOfTheWeekEnd = end.getDay()
-  console.log(end)
-  console.log(dayOfTheWeekEnd)
+  //console.log(end)
+  //console.log(dayOfTheWeekEnd)
 
   let dateForCounter = start;
   let counter = daysCount
-  console.log(visits)
+  //console.log(visits)
   while (counter > 0) {
-    console.log(dateForCounter)
+    //console.log(dateForCounter)
     let dayOfWeek = days[dateForCounter.getDay()]
-    console.log(dayOfWeek)
-    console.log(visits[dayOfWeek])
+    //console.log(dayOfWeek)
+    //console.log(visits[dayOfWeek])
     if (visits[dayOfWeek]) {
-      console.log('+')
+      console.log(visits[dayOfWeek])
+      console.log(dateForCounter)
+      counter = counter-1;
     }
-    counter = counter-1;
+    //counter = counter-1;
     dateForCounter = new Date(dateForCounter.setDate(dateForCounter.getDate() + 1))
   }
 /*
