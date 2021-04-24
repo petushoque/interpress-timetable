@@ -152,14 +152,12 @@ function endDateFunc () {
   const [recreation, setRecreation] = useState(0);
   function handleChangeRecreationTime (e) {
     setRecreation(e.target.value)
-    setTimeout(handleChangeEndTime, 10);
   }
 
   const [hoursPerDay, setHoursPerDay] = useState(0)
   function handlePlusHoursPerDay () {
     if (hoursPerDay < totalHours) {
       setHoursPerDay(hoursPerDay+1)
-      setTimeout(handleChangeEndTime, 10);
       endDateFunc()
       
     }
@@ -170,7 +168,6 @@ function endDateFunc () {
   function handleMinusHoursPerDay () {
     if (hoursPerDay>0) {
       setHoursPerDay(hoursPerDay-1)
-      setTimeout(handleChangeEndTime, 10);
       endDateFunc()
       
     }
@@ -182,8 +179,13 @@ function endDateFunc () {
   const [startTime, setStartTime] = useState('07:00')
   function handleChangeStartTime (e) {
     setStartTime(e.target.value)
-    setTimeout(handleChangeEndTime, 10);
+    //setTimeout(handleChangeEndTime, 1000);
   }
+
+  useEffect(() => {
+    if (startTime) // This means if Fred is not default empty state.
+      handleChangeEndTime ()
+  }, [startTime])
 
 
   const [endTime, setEndTime] = useState('07:00')
@@ -205,17 +207,14 @@ function endDateFunc () {
         minutes = `0${minutes}`
       }
       let result = `${hours}:${minutes}`
-      return result
-      
+      console.log(result)
+      setEndTime(result)
       
     }
     //console.log(minutesAtStart)
     //setEndTime('')
   }
 
-  useEffect(() => {
-    setEndTime(endTime)
-  }, [endTime])
 
 
 
