@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { useState, useEffect } from 'react';
 
@@ -42,12 +41,10 @@ function App() {
   const [totalHours, setTotalHours] = useState(0)
   function handlePlusTotalHours () {
     setTotalHours(totalHours+1)
-    //endDateFunc()
   }
   function handleMinusTotalHours () {
     if (totalHours>0) {
       setTotalHours(totalHours-1)
-      //endDateFunc()
     }
     else {
       return totalHours
@@ -60,7 +57,6 @@ function App() {
 
   function handleChangeStartDate (e) {
     setStartDate(e.target.value)
-    //endDateFunc()
   }
 
 //РАСЧЕТ ДАТЫ ОКОНЧАНИЯ ОБУЧЕНИЯ
@@ -88,7 +84,7 @@ function endDateFunc () {
   let dateForCounter = start;
   let counter = daysCount;
 
-  //читит баг, с выбранными датой, количеством часов и пустым полем дней недели
+  //чиcтит баг, с выбранными датой, количеством часов и пустым полем дней недели
   if (!(visits.mo || visits.tu || visits.we || visits.th || visits.fr || visits.sa || visits.su))
   {
     counter=0;
@@ -121,40 +117,31 @@ function endDateFunc () {
   
   function handleChangeMnWeFr () {
     setVisits({...visits, mo: true, tu: false, we: true, th: false, fr: true, sa: false, su: false});
-    //endDateFunc()
   }
   function handleChangeTuTh () {
     setVisits({...visits, mo: false, tu: true, we: false, th: true, fr: false, sa: false, su: false});
-    //endDateFunc()
   }
 
   function handleChangeMonday () {
     visits.mo === true ? setVisits({...visits, mo: false}) : setVisits({...visits, mo: true});
-    //endDateFunc()
   }
   function handleChangeTuesday () {
     visits.tu === true ? setVisits({...visits, tu: false}) : setVisits({...visits, tu: true});
-    //endDateFunc()
   }
   function handleChangeWednesday () {
     visits.we === true ? setVisits({...visits, we: false}) : setVisits({...visits, we: true});
-    //endDateFunc()
   }
   function handleChangeThursday () {
     visits.th === true ? setVisits({...visits, th: false}) : setVisits({...visits, th: true});
-    //endDateFunc()
   }
   function handleChangeFriday () {
     visits.fr === true ? setVisits({...visits, fr: false}) : setVisits({...visits, fr: true});
-    //endDateFunc()
   }
   function handleChangeSaturday () {
     visits.sa === true ? setVisits({...visits, sa: false}) : setVisits({...visits, sa: true});
-    //endDateFunc()
   }
   function handleChangeSunday () {
     visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true});
-    //endDateFunc()
   }
 
   const [recreation, setRecreation] = useState(0);
@@ -166,7 +153,6 @@ function endDateFunc () {
   function handlePlusHoursPerDay () {
     if (hoursPerDay < totalHours) {
       setHoursPerDay(hoursPerDay+1)
-      //endDateFunc()
       
     }
     else {
@@ -176,7 +162,6 @@ function endDateFunc () {
   function handleMinusHoursPerDay () {
     if (hoursPerDay>0) {
       setHoursPerDay(hoursPerDay-1)
-      //endDateFunc()
       
     }
     else {
@@ -187,7 +172,6 @@ function endDateFunc () {
   const [startTime, setStartTime] = useState('07:00')
   function handleChangeStartTime (e) {
     setStartTime(e.target.value)
-    //setTimeout(handleChangeEndTime, 1000);
   }
 
   useEffect(() => {
