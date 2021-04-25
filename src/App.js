@@ -4,7 +4,6 @@ import { useState, useEffect } from 'react';
 
 function App() {
 
-  //СБОР ВСЕХ ДАННЫХ ДЛЯ ОТПРАВКИ НА СЕРВЕР
   const [data, setData] = useState({
     'hours-type': '',
     'total-hours': '',
@@ -88,6 +87,13 @@ function endDateFunc () {
   ];
   let dateForCounter = start;
   let counter = daysCount;
+
+  //читит баг, с выбранными датой, количеством часов и пустым полем дней недели
+  if (!(visits.mo || visits.tu || visits.we || visits.th || visits.fr || visits.sa || visits.su))
+  {
+    counter=0;
+  }
+
   while (counter > 0) {
     let dayOfWeek = days[dateForCounter.getDay()];    
     if (visits[dayOfWeek]) {
