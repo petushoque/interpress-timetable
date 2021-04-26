@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from './components/Header'
 import SelectList from './components/SelectList'
 import Counter from './components/Counter'
+import Timer from './components/Timer'
 
 function App() {
 
@@ -254,13 +255,8 @@ function endDateFunc () {
 
         <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={totalHours} description='Всего часов'/>
 
+        <Timer start={startDate} finish={endDate} handler={handleChangeStartDate} type='date'/>
 
-
-      <div className='dates'>
-        <input className='dates__input' value={startDate} onChange={handleChangeStartDate} type='date'/>
-        <p className='dates__paragraph'>до</p>
-        <input className='dates__input' value={endDate} type='date' readOnly/>
-      </div>
       
       <div className='schedule-of-visits'>
           <button className='day-of-visits' onClick={handleChangeMnWeFr}>ПН/СР/ПТ</button>
@@ -274,28 +270,20 @@ function endDateFunc () {
           <button className={visits.su? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeSunday}>ВС</button>
       </div>
 
-      <select className='recreation-time' name='recreation-time' size="1" defaultValue={recreation} onChange={handleChangeRecreationTime}>
-      <option value='0'>Без перерыва</option>
-      <option value='5'>5 минут</option>
-      <option value='10'>10 минут</option>
-      <option value='15'>15 минут</option>
-      <option value='20'>20 минут</option>
-      <option value='25'>25 минут</option>
-      <option value='30'>30 минут</option>
-      </select>
+      <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={hoursPerDay} description='Часов в день'/>
 
-      <div className='hours-per-day'>
-        <button className='hours-per-day__button-minus' onClick={handleMinusHoursPerDay}>-</button>
-        <p className='hours-per-day__digit'>{hoursPerDay}</p>
-        <p className='hours-per-day__paragraph'>Часов в день</p>
-        <button className='hours-per-day__button-plus' onClick={handlePlusHoursPerDay}>+</button>
-      </div>
+      <SelectList class='recreation-time' handler={handleChangeRecreationTime}>
+        <option value='0'>Без перерыва</option>
+        <option value='5'>5 минут</option>
+        <option value='10'>10 минут</option>
+        <option value='15'>15 минут</option>
+        <option value='20'>20 минут</option>
+        <option value='25'>25 минут</option>
+        <option value='30'>30 минут</option>
+      </SelectList>
 
-      <div className='times'>
-        <input className='times__input' onChange={handleChangeStartTime} value={startTime} type='time'/>
-        <p className='times__paragraph'>до</p>
-        <input className='times__input' type='time' value={endTime} readOnly/>
-      </div>
+      <Timer start={startTime} finish={endTime} handler={handleChangeStartTime} type='time'/>
+
 
       <select className='teacher-name' name="teachername" size="1" defaultValue='' onChange={handleChangeTeacher}>
       <option value="">Выберите преподавателя на это время</option>

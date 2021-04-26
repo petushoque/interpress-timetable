@@ -1,0 +1,45 @@
+.timer {
+    width: 235px;
+    height: 45px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #bdbdbd;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    box-sizing: border-box;
+    justify-content: center;
+}
+
+.timer__input {
+    flex-shrink: 1;
+    height: 100%;
+    border: none;
+    font-size: 14px;
+    color: #5f6368;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+    text-align: center;
+}
+
+.timer__paragraph {
+    min-width: 43px;
+    height: 100%;
+    background-color: #bdbdbd;
+    border-left: 1px solid #bdbdbd;
+    border-right: 1px solid #bdbdbd;
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 400;
+    font-family: "Montserrat", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+::-webkit-calendar-picker-indicator {
+    display: none;}
