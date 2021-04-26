@@ -10,6 +10,7 @@
     overflow: hidden;
     box-sizing: border-box;
     justify-content: center;
+    margin: 0 0 20px 0;
 }
 
 .timer__input {
@@ -42,4 +43,10 @@
 }
 
 ::-webkit-calendar-picker-indicator {
-    display: none;}
+    display: none}
+
+@media screen and (max-width: 799px) {
+    .timer {
+        width: 100%
+    }
+}

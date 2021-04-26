@@ -60,3 +60,12 @@
     font-weight: 400;
     font-family: "Montserrat", sans-serif;
 }
+
+@media screen and (max-width: 799px) {
+    .counter {
+        width: 100%
+    }
+    .counter-button {
+        width: 88px;
+    }
+}

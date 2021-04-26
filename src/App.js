@@ -284,20 +284,20 @@ function endDateFunc () {
 
       <Timer start={startTime} finish={endTime} handler={handleChangeStartTime} type='time'/>
 
+      <SelectList class='teacher-name' handler={handleChangeTeacher}>
+        <option value="">Выберите преподавателя на это время</option>
+        <option value="ivanov">Иванов Иван</option>
+        <option value="petrov">Петров Петр</option>
+        <option value="reeves">Киану Ривз</option>
+      </SelectList>
 
-      <select className='teacher-name' name="teachername" size="1" defaultValue='' onChange={handleChangeTeacher}>
-      <option value="">Выберите преподавателя на это время</option>
-      <option value="ivanov">Иванов Иван</option>
-      <option value="petrov">Петров Петр</option>
-      <option value="reeves">Киану Ривз</option>
-      </select>
+      <SelectList class='room' handler={handleChangeRoom}>
+        <option value="">Аудитория</option>
+        <option value="001">001</option>
+        <option value="002">002</option>
+        <option value="003">003</option>
+      </SelectList>
 
-      <select className='room' name="room" size="1" defaultValue='' onChange={handleChangeRoom}>
-      <option value="">Аудитория</option>
-      <option value="001">001</option>
-      <option value="002">002</option>
-      <option value="003">003</option>
-      </select>
 
 
       <button className='console-button' onClick={handleAllData}>Применить</button>

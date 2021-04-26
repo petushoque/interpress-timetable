@@ -1,7 +1,7 @@
 import './Timer.css'
 
 function Timer (props) {
-    const handlerFunc = () => {props.handlerMinus()}
+    const handlerFunc = (e) => {props.handler(e)}
 
     return (
         <div className='timer'>
