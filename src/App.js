@@ -1,6 +1,10 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
+import Header from './components/Header'
+import SelectList from './components/SelectList'
+import Counter from './components/Counter'
+
 function App() {
 
   const [data, setData] = useState({
@@ -233,21 +237,24 @@ function endDateFunc () {
   function handleChangeRoom (e) {
     setRoom(e.target.value)
   }
-
   return (
     <div className='App'>
 
-      <select className='hours-type' name="hourstype" size="1" defaultValue='academic' onChange={handleChangeHoursType}>
-      <option value="academic">Академические</option>
-      <option value="astronomical">Астрономические</option>
-      </select>
+      <div className='timetable'>
 
-      <div className='total-hours'>
-        <button className='total-hours__button-minus' onClick={handleMinusTotalHours}>-</button>
-        <p className='total-hours__digit'>{totalHours}</p>
-        <p className='total-hours__paragraph'>Всего часов</p>
-        <button className='total-hours__button-plus' onClick={handlePlusTotalHours}>+</button>
-      </div>
+        <Header/>
+
+          <div className='main-content'>
+
+        <SelectList class='hours-type' handler={handleChangeHoursType}>
+          <option value="">Тип часов</option>
+          <option value="academic">Академические</option>
+          <option value="astronomical">Астрономические</option>
+        </SelectList>
+
+        <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={totalHours} description='Всего часов'/>
+
+
 
       <div className='dates'>
         <input className='dates__input' value={startDate} onChange={handleChangeStartDate} type='date'/>
@@ -308,6 +315,8 @@ function endDateFunc () {
       <button className='console-button' onClick={handleAllData}>Применить</button>
       <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
 
+      </div>
+        </div>
       </div>
     
   );

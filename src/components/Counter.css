@@ -1,0 +1,25 @@
+.counter {
+    width: 235px;
+    height: 45px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #bdbdbd;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.counter-button {
+    width: 44px;
+    height: 100%;
+    background-color: #5a8dee;
+}
+
+.counter-button-minus {    
+    border-radius: 5px 0 0 5px;
+}
+
+.counter-button-plus {    
+    border-radius: 0 5px 5px 0;
+}
