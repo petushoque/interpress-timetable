@@ -8,75 +8,60 @@ import Timer from './components/Timer'
 
 function App() {
 
+  let NewDate = new Date()
+  const today = NewDate.toISOString().slice(0,10);
+
   const [data, setData] = useState({
     'hours-type': '',
-    'total-hours': '',
-    'start-date': '',
-    'end-date': '',
-    'day-of-visits': '',
-    'recreation-time': '',
-    'hours-per-day': '',
-    'start-time': '',
-    'end-time': '',
+    'total-hours': 0,
+    'start-date': today,
+    'end-date': today,
+    'day-of-visits': {    
+      mo: false,
+      tu: false,
+      we: false,
+      th: false,
+      fr: false,
+      sa: false,
+      su: false,},
+    'recreation-time': 0,
+    'hours-per-day': 0,
+    'start-time': '07:00',
+    'end-time': '07:00',
     'teacher': '',
     'room': '',
   });
-  function handleAllData () {
-    setData({
-      'hours-type': hoursType,
-      'total-hours': totalHours,
-      'start-date': startDate,
-      'end-date': endDate,
-      'day-of-visits': visits,
-      'recreation-time': recreation,
-      'hours-per-day': hoursPerDay,
-      'start-time': startTime,
-      'end-time': endTime,
-      'teacher': teacher,
-      'room': room
-    })
-  }
 
-  //Состояние типа часов, академические/астрономические
-  const [hoursType, setHoursType] = useState('academic');
+
   function handleChangeHoursType (e) {
-    setHoursType(e.target.value)
+    setData({...data, 'hours-type': e.target.value})
   }
-
-  const [totalHours, setTotalHours] = useState(0)
   function handlePlusTotalHours () {
-    setTotalHours(totalHours+1)
+    setData({...data, 'total-hours': data['total-hours']+1})
   }
   function handleMinusTotalHours () {
-    if (totalHours>0) {
-      setTotalHours(totalHours-1)
+    if (data['total-hours']>0) {
+      setData({...data, 'total-hours': data['total-hours']-1})
     }
     else {
-      return totalHours
+      return data['total-hours']
     }
   }
 
-  let NewDate = new Date()
-  const today = NewDate.toISOString().slice(0,10);
-  const [startDate, setStartDate] = useState(today)
-
   function handleChangeStartDate (e) {
-    setStartDate(e.target.value)
+    setData({...data, 'start-date': e.target.value})
   }
 
-//РАСЧЕТ ДАТЫ ОКОНЧАНИЯ ОБУЧЕНИЯ
-
-const [endDate, setEndDate] = useState(today)
 
 function endDateFunc () {
-  if (totalHours!==0 && hoursPerDay!==0 && 
-    (visits.mo && visits.tu && visits.we && visits.th && visits.fr && visits.sa && visits.su)!==0 ) 
-    
+  if (data['total-hours']!==0 && data['hours-per-day']!==0 && 
+    (visits.mo && visits.tu && visits.we && visits.th && visits.fr && visits.sa && visits.su)!==0 )     
     
     {
 
-  let start = new Date(startDate);
-  let daysCount = Math.ceil(totalHours/hoursPerDay);
+
+  let start = new Date(data['start-date']);
+  let daysCount = Math.ceil(data['total-hours']/data['hours-per-day']);
   let days = [
     'su',
     'mo',
@@ -102,11 +87,12 @@ function endDateFunc () {
     }
     dateForCounter = new Date(dateForCounter.setDate(dateForCounter.getDate() + 1))
   }
-  let result = new Date(dateForCounter.setDate(dateForCounter.getDate()) -1)
-  setEndDate(result.toISOString().slice(0,10))
+  const result = (new Date(dateForCounter.setDate(dateForCounter.getDate()) -1)).toISOString().slice(0,10)
+  setData({...data, 'end-date': result})
+
   }
   else {
-    setEndDate(today)
+    setData({...data, 'end-date': today})
   }
 }
 
@@ -149,55 +135,74 @@ function endDateFunc () {
     visits.su === true ? setVisits({...visits, su: false}) : setVisits({...visits, su: true});
   }
 
-  const [recreation, setRecreation] = useState(0);
   function handleChangeRecreationTime (e) {
-    setRecreation(e.target.value)
+    setData({...data, 'recreation-time': e.target.value})
   }
 
-  const [hoursPerDay, setHoursPerDay] = useState(0)
+
   function handlePlusHoursPerDay () {
-    if (hoursPerDay < totalHours) {
-      setHoursPerDay(hoursPerDay+1)
+    if (data['hours-per-day'] < data['total-hours']) {
+      const replacement = data['hours-per-day'] + 1
+      setData({...data, 'hours-per-day': replacement})
       
     }
     else {
-      return hoursPerDay
+      return
+      //return data['hours-per-day']
     }
   }
+
   function handleMinusHoursPerDay () {
-    if (hoursPerDay>0) {
-      setHoursPerDay(hoursPerDay-1)
-      
+    if (data['hours-per-day']>0) {
+      const replacement = data['hours-per-day'] - 1;
+      setData({...data, 'hours-per-day': replacement})      
     }
     else {
-      return hoursPerDay
+      return
+      //eturn data['hours-per-day']
     }
   }
-
-  const [startTime, setStartTime] = useState('07:00')
+  
   function handleChangeStartTime (e) {
-    setStartTime(e.target.value)
+    setData({...data, 'start-time': e.target.value})
   }
 
   useEffect(() => {
-    if (startDate)
+    if (data['recreation-time'])
       handleChangeEndTime ()
-  }, [hoursType, startTime, hoursPerDay, recreation])
+  }, [data['recreation-time']])
 
   useEffect(() => {
-    if (startTime)
+    if (data['start-date'])
+      handleChangeEndTime ()
+  }, [data['start-date']])
+
+  useEffect(() => {
+    if (data['hours-type'])
+      handleChangeEndTime ()
+  }, [data['hours-type']])
+
+  useEffect(() => {
+    if (data['hours-per-day'])
+      handleChangeEndTime() 
+  }, [data['hours-per-day']])
+
+  
+
+  useEffect(() => {
+    if (data)
       endDateFunc()
-  }, [startDate, totalHours, hoursPerDay, visits])
+  }, [data['start-date'], data['total-hours'], data['hours-per-day'], visits])
 
 
-  const [endTime, setEndTime] = useState('07:00')
+
   function handleChangeEndTime () {
-    let arr = (startTime.split(':'))
-    let educTime = 45 * (Number.parseInt(hoursPerDay))
-    let educTimeAstro = 60 * (Number.parseInt(hoursPerDay))
-    let recTime = Number.parseInt(recreation)
+    let arr = (data['start-time'].split(':'))
+    let educTime = 45 * (Number.parseInt(data['hours-per-day']))
+    let educTimeAstro = 60 * (Number.parseInt(data['hours-per-day']))
+    let recTime = Number.parseInt(data['recreation-time'])
     let minutesAtStart = (Number.parseInt(arr[0]) * 60) + Number.parseInt(arr[1]);
-    if (hoursType==='academic') {
+    if (data['hours-type']==='academic') {
       let minutesAtFinish = minutesAtStart + educTime + recTime;
       let hours = Math.floor(minutesAtFinish/60);
       if (hours < 10) {
@@ -208,9 +213,11 @@ function endDateFunc () {
         minutes = `0${minutes}`
       }
       let result = `${hours}:${minutes}`
-      setEndTime(result)      
+      console.log(result)
+      setData({...data, 'end-time': result})
+
     }
-    if (hoursType==='astronomical') {
+    if (data['hours-type']==='astronomical') {
       let minutesAtFinish = minutesAtStart + educTimeAstro + recTime;
       let hours = Math.floor(minutesAtFinish/60);
       if (hours < 10) {
@@ -221,22 +228,17 @@ function endDateFunc () {
         minutes = `0${minutes}`
       }
       let result = `${hours}:${minutes}`
-      setEndTime(result)      
+      console.log(result)
+      setData({...data, 'end-time': result})    
     }
   }
 
-
-
-
-
-  const [teacher, setTeacher] = useState('');
   function handleChangeTeacher (e) {
-    setTeacher(e.target.value)
+    setData({...data, 'teacher': e.target.value})
   }
 
-  const [room, setRoom] = useState('');
   function handleChangeRoom (e) {
-    setRoom(e.target.value)
+    setData({...data, 'room': e.target.value})
   }
   return (
     <div className='App'>
@@ -253,9 +255,9 @@ function endDateFunc () {
           <option value="astronomical">Астрономические</option>
         </SelectList>
 
-        <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={totalHours} description='Всего часов'/>
+        <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={data['total-hours']} description='Всего часов'/>
 
-        <Timer start={startDate} finish={endDate} handler={handleChangeStartDate} type='date'/>
+        <Timer start={data['start-date']} finish={data['end-date']} handler={handleChangeStartDate} type='date'/>
 
       
       <div className='schedule-of-visits'>
@@ -270,7 +272,7 @@ function endDateFunc () {
           <button className={visits.su? 'day-of-visits_active' : 'day-of-visits'} onClick={handleChangeSunday}>ВС</button>
       </div>
 
-      <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={hoursPerDay} description='Часов в день'/>
+      <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={data['hours-per-day']} description='Часов в день'/>
 
       <SelectList class='recreation-time' handler={handleChangeRecreationTime}>
         <option value='0'>Без перерыва</option>
@@ -282,7 +284,7 @@ function endDateFunc () {
         <option value='30'>30 минут</option>
       </SelectList>
 
-      <Timer start={startTime} finish={endTime} handler={handleChangeStartTime} type='time'/>
+      <Timer start={data['start-time']} finish={data['end-time']} handler={handleChangeStartTime} type='time'/>
 
       <SelectList class='teacher-name' handler={handleChangeTeacher}>
         <option value="">Выберите преподавателя на это время</option>
@@ -298,9 +300,6 @@ function endDateFunc () {
         <option value="003">003</option>
       </SelectList>
 
-
-
-      <button className='console-button' onClick={handleAllData}>Применить</button>
       <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
 
       </div>
