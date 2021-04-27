@@ -4,8 +4,8 @@ function Days (props) {
     function handlerFunc (arg) {props.handler(arg)}
     return (
         <div className='days'>
-            <div className='days__day_active' onClick={() => handlerFunc('mowefr')}>ПН/СР/ПТ</div>
-            <div className='days__day_active' onClick={() => handlerFunc('tuth')}>ВТ/ЧТ</div>
+            <div className='days__day' onClick={() => handlerFunc('mowefr')}>ПН/СР/ПТ</div>
+            <div className='days__day' onClick={() => handlerFunc('tuth')}>ВТ/ЧТ</div>
             <div className={props.visits.includes(1)? 'days__day_active' : 'days__day'} onClick={() => handlerFunc(1)}>ПН</div>
             <div className={props.visits.includes(2)? 'days__day_active' : 'days__day'} onClick={() => handlerFunc(2)}>ВТ</div>
             <div className={props.visits.includes(3)? 'days__day_active' : 'days__day'} onClick={() => handlerFunc(3)}>СР</div>

@@ -237,18 +237,7 @@ function endDateFunc () {
         <Timer start={data['start-date']} finish={data['end-date']} handler={handleChangeStartDate} type='date'/>
 
         <Days handler={handleChanggeDayOfVisits} visits={visits}></Days>
-      
-      <div className='schedule-of-visits'>
-          <button className='day-of-visits' onClick={() => handleChanggeDayOfVisits('mowefr')}>ПН/СР/ПТ</button>
-          <button className='day-of-visits' onClick={() => handleChanggeDayOfVisits('tuth')}>ВТ/ЧТ</button>
-          <button className={visits.includes(1)? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(1)}>ПН</button>
-          <button className={visits.includes(2)? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(2)}>ВТ</button>
-          <button className={visits.we? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(3)}>СР</button>
-          <button className={visits.th? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(4)}>ЧТ</button>
-          <button className={visits.fr? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(5)}>ПТ</button>
-          <button className={visits.sa? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(6)}>СБ</button>
-          <button className={visits.su? 'day-of-visits_active' : 'day-of-visits'} onClick={() => handleChanggeDayOfVisits(7)}>ВС</button>
-      </div>
+ 
 
       <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={data['hours-per-day']} description='Часов в день'/>
 
