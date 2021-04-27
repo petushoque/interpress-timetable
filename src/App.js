@@ -17,14 +17,7 @@ function App() {
     'total-hours': 0,
     'start-date': today,
     'end-date': today,
-    'day-of-visits': {    
-      mo: false,
-      tu: false,
-      we: false,
-      th: false,
-      fr: false,
-      sa: false,
-      su: false,},
+    'day-of-visits': [],
     'recreation-time': 0,
     'hours-per-day': 0,
     'start-time': '07:00',
@@ -55,35 +48,31 @@ function App() {
 
 
 function endDateFunc () {
-  if (data['total-hours']!==0 && data['hours-per-day']!==0 && 
-    (visits[1] && visits[2] && visits[3] && visits[4] && visits[5] && visits[6] && visits[7])!==0 )     
-    
+  if (data['total-hours']!==0 && data['hours-per-day']!==0 && visits.length!==0 )    
     {
+      let start = new Date(data['start-date']);
+      let daysCount = Math.ceil(data['total-hours']/data['hours-per-day']);
+      let days = [
+        7,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ];
+      let dateForCounter = start;
+      let counter = daysCount;
 
+      console.log(counter)
 
-  let start = new Date(data['start-date']);
-  let daysCount = Math.ceil(data['total-hours']/data['hours-per-day']);
-  let days = [
-    7,
-    1,
-    2,
-    3,
-    4,
-    5,
-    6
-  ];
-  let dateForCounter = start;
-  let counter = daysCount;
-
-  //чиcтит баг, с выбранными датой, количеством часов и пустым полем дней недели
-  if (!(visits[1] || visits[2] || visits[3] || visits[4] || visits[5] || visits[6] || visits[7]))
+  if (visits.length===0)
   {
     counter=0;
   }
-
   while (counter > 0) {
-    let dayOfWeek = days[dateForCounter.getDay()];    
-    if (visits[dayOfWeek]) {
+    let dayOfWeek = days[dateForCounter.getDay()];
+    if (visits.includes(dayOfWeek)) {
       counter = counter-1;
     }
     dateForCounter = new Date(dateForCounter.setDate(dateForCounter.getDate() + 1))
@@ -159,7 +148,7 @@ function endDateFunc () {
   }
 
   useEffect(() => {
-    //if (data['hours-per-day'])
+    if (data)
       handleChangeEndTime ()
   }, [data['recreation-time'], data['start-time'], data['hours-type'], data['hours-per-day']])
 
@@ -262,7 +251,7 @@ function endDateFunc () {
             <div className='notification'>
               <p className='notification__paragraph'>Выбор <strong className='notification__strong'>преподавателя</strong> и <strong className='notification__strong'>аудитории</strong> не обязателен</p>
             </div>
-            <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
+            <button className='console-button' onClick={() => {console.log(data); console.log(visits)}}>Показать данные в консоли</button>
         </div>
       </div>
     </div>    
