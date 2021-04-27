@@ -140,7 +140,6 @@ function endDateFunc () {
       
     }
     else {
-      //return
       return data['hours-per-day']
     }
   }
@@ -219,61 +218,58 @@ function endDateFunc () {
   }
   return (
     <div className='App'>
-
       <div className='timetable'>
-
         <Header/>
-
           <div className='main-content'>
-
-        <SelectList class='hours-type' handler={handleChangeHoursType}>
-          <option value="">Тип часов</option>
-          <option value="academic">Академические</option>
-          <option value="astronomical">Астрономические</option>
-        </SelectList>
-
-        <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={data['total-hours']} description='Всего часов'/>
-
-        <Timer start={data['start-date']} finish={data['end-date']} handler={handleChangeStartDate} type='date'/>
-
-        <Days handler={handleChanggeDayOfVisits} visits={visits}></Days>
- 
-
-      <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={data['hours-per-day']} description='Часов в день'/>
-
-      <SelectList class='recreation-time' handler={handleChangeRecreationTime}>
-        <option value='0'>Без перерыва</option>
-        <option value='5'>5 минут</option>
-        <option value='10'>10 минут</option>
-        <option value='15'>15 минут</option>
-        <option value='20'>20 минут</option>
-        <option value='25'>25 минут</option>
-        <option value='30'>30 минут</option>
-      </SelectList>
-
-      <Timer start={data['start-time']} finish={data['end-time']} handler={handleChangeStartTime} type='time'/>
-
-      <SelectList class='teacher-name' handler={handleChangeTeacher}>
-        <option value="">Выберите преподавателя на это время</option>
-        <option value="ivanov">Иванов Иван</option>
-        <option value="petrov">Петров Петр</option>
-        <option value="reeves">Киану Ривз</option>
-      </SelectList>
-
-      <SelectList class='room' handler={handleChangeRoom}>
-        <option value="">Аудитория</option>
-        <option value="001">001</option>
-        <option value="002">002</option>
-        <option value="003">003</option>
-      </SelectList>
-
-      <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
-
-      </div>
+            <select className='location' size="1">
+              <option>Локация (НЕ ИЗМЕННА)</option>
+            </select>
+            <div className='color'>
+              <p className='color__paragraph'>Цвет группы:</p>
+              <input className='color__input'type='color'></input>
+            </div>
+            <SelectList class='hours-type' handler={handleChangeHoursType}>
+              <option value="">Тип часов</option>
+              <option value="academic">Академические</option>
+              <option value="astronomical">Астрономические</option>
+            </SelectList>
+            <Counter handlerMinus={handleMinusTotalHours} handlerPlus={handlePlusTotalHours} digit={data['total-hours']} description='Всего часов'/>
+            <Timer start={data['start-date']} finish={data['end-date']} handler={handleChangeStartDate} type='date'/>
+            <Days handler={handleChanggeDayOfVisits} visits={visits}></Days>
+            <Counter handlerMinus={handleMinusHoursPerDay} handlerPlus={handlePlusHoursPerDay} digit={data['hours-per-day']} description='Часов в день'/>
+            <SelectList class='recreation-time' handler={handleChangeRecreationTime}>
+              <option value='0'>Без перерыва</option>
+              <option value='5'>5 минут</option>
+              <option value='10'>10 минут</option>
+              <option value='15'>15 минут</option>
+              <option value='20'>20 минут</option>
+              <option value='25'>25 минут</option>
+              <option value='30'>30 минут</option>
+            </SelectList>
+            <Timer start={data['start-time']} finish={data['end-time']} handler={handleChangeStartTime} type='time'/>
+            <SelectList class='teacher-name' handler={handleChangeTeacher}>
+              <option value="">Выберите преподавателя на это время</option>
+              <option value="ivanov">Иванов Иван</option>
+              <option value="petrov">Петров Петр</option>
+              <option value="reeves">Киану Ривз</option>
+            </SelectList>
+            <SelectList class='room' handler={handleChangeRoom}>
+              <option value="">Аудитория</option>
+              <option value="001">001</option>
+              <option value="002">002</option>
+              <option value="003">003</option>
+            </SelectList>
+            <div className='notification'>
+              <p className='notification__paragraph'>Выбор <strong className='notification__strong'>преподавателя</strong> и <strong className='notification__strong'>аудитории</strong> не обязателен</p>
+            </div>
+            <button className='console-button' onClick={() => console.log(data)}>Показать данные в консоли</button>
         </div>
       </div>
-    
+    </div>    
   );
 }
 
 export default App;
+
+
+
