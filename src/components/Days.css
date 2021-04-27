@@ -1,0 +1,17 @@
+.days {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.days__day {
+    flex-grow: 1;
+    text-align: center;
+}
+
+.days__day_active {
+    flex-grow: 1;
+    text-align: center;
+    color: red
+}
